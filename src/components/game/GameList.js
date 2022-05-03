@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getGames } from "./GameManager.js"
+import { getGames, deleteGame } from "./GameManager.js"
 import { useHistory } from "react-router-dom"
 
 export const GameList = (props) => {
@@ -25,10 +25,23 @@ export const GameList = (props) => {
                             <div className="game__title">{game.title} by {game.maker}</div>
                             <div className="game__players">{game.number_of_player} players needed</div>
                             <div className="game__skillLevel">Skill level is {game.skill_level}</div>
+                            <button className="btn icon-edit"
+                                onClick={() => {
+                                    history.push({ pathname: `/games/${game.id}`})
+                            }}>Edit</button>
+                            <button className="btn delete-game" onClick={() => 
+                                {
+                                    deleteGame(game.id)
+                                        .then(getGames)
+                                        .then(g => setGames(g))
+                                }
+                            }>DELETE</button>
                         </section>
                     })
                 }
             </article>
+
+            
         </>
         )
 }
