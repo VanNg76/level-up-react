@@ -38,3 +38,27 @@ export const saveEditEvent = (eventId, newEvent) => {
         body: JSON.stringify(newEvent)
     })
 }
+
+export const leaveEvent = newEvent => {
+    // TODO: Write the DELETE fetch request to leave an event
+    return fetch(`http://localhost:8000/events/${newEvent.id}/leave`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newEvent)
+     })
+  }
+
+export const joinEvent = newEvent => {
+    // TODO: Write the POST fetch request to join an event
+    return fetch(`http://localhost:8000/events/${newEvent.id}/signup`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newEvent)
+     })
+}

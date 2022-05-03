@@ -27,8 +27,6 @@ export const EditEventForm = () => {
     const changeEventState = (domEvent) => {
         // TODO: Complete the onChange function
         const copy = {...editEvent}      // Create a copy
-        /* if name=game, return a whole game-obj else do 1 line below code*/
-        
         copy[domEvent.target.name] = domEvent.target.value   // Modify copy
         setEditEvent(copy)     // Set copy as new state
     }
@@ -81,15 +79,8 @@ export const EditEventForm = () => {
                     // Prevent form from being submitted
                     evt.preventDefault()
 
-                    const event = {
-                        description: editEvent.description,
-                        date: editEvent.date,
-                        time: editEvent.time,
-                        game: parseInt(editEvent.game)
-                    }
-
                     // Send POST request to your API
-                    saveEditEvent(eventId, event)
+                    saveEditEvent(eventId, editEvent)
                         .then(() => history.push("/events"))
                 }}>Done</button>
         </form>

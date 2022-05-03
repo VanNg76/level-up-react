@@ -86,16 +86,8 @@ export const EditGameForm = () => {
                     // Prevent form from being submitted
                     evt.preventDefault()
 
-                    const game = {
-                        skill_level: parseInt(editGame.skill_level),
-                        number_of_player: parseInt(editGame.number_of_player),
-                        title: editGame.title,
-                        maker: editGame.maker,
-                        game_type: editGame.game_type
-                    }
-
                     // Send POST request to your API
-                    saveEditGame(gameId, game)
+                    saveEditGame(gameId, editGame)
                         .then(() => history.push("/games"))
                 }}>Done</button>
         </form>

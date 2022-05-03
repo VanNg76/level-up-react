@@ -1,4 +1,4 @@
-import { getEvents } from "./EventManager";
+import { getEvents, leaveEvent, joinEvent } from "./EventManager";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -17,7 +17,7 @@ export const EventList = () => {
                 onClick={() => {
                     history.push({ pathname: "/events/new" })
                 }}
-            >Create New Event</button>
+            >Schedule New Event</button>
 
             <article className="events">
             {
@@ -26,10 +26,31 @@ export const EventList = () => {
                         <div className="event__description">{event.description}</div>
                         <div className="event__datetime">Happen on {event.date} at {event.time}</div>
                         <div className="event__organizer"> Organized by {event.organizer.user.first_name} {event.organizer.user.last_name}</div>
-                        <button className="btn icon-edit"
-                            onClick={() => {
-                                history.push({ pathname: `/events/${event.id}`})
-                            }}>Edit</button>
+                        {
+                            event.joined ?
+                                <button className="btn leave-event" onClick={(e) => {
+                                    e.preventDefault()
+                                    leaveEvent(event)
+                                        .then(getEvents)
+                                        .then(e => setEvents(e))
+                                }}>Leave Event</button>
+                            :
+                                <button className="btn join-event" onClick={(e) => {
+                                    e.preventDefault()
+                                    joinEvent(event)
+                                        .then(getEvents)
+                                        .then(e => setEvents(e))
+                                }}>Join Event</button>
+                        }
+
+                        {
+                            event.is_organizer ? 
+                                <button className="btn icon-edit"
+                                    onClick={() => {
+                                        history.push({ pathname: `/events/${event.id}`})
+                                }}>Edit Event</button>
+                            : null
+                        }
                     </section>
                 })
             }
