@@ -26,6 +26,8 @@ export const EventList = () => {
                         <div className="event__description">{event.description}</div>
                         <div className="event__datetime">Happen on {event.date} at {event.time}</div>
                         <div className="event__organizer"> Organized by {event.organizer.user.first_name} {event.organizer.user.last_name}</div>
+                        <p>There are {event.attendees_count} gamers joined this event</p>
+                        <p>Number of attendees: {event.attendees.length} </p>
                         {
                             event.joined ?
                                 <button className="btn leave-event" onClick={(e) => {
